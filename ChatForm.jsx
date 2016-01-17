@@ -9,19 +9,33 @@
 ChatForm = React.createClass({                                         // 1
   displayName: "ChatForm",                                             //
                                                                        //
-  handleSubmit: function (e) {                                         // 2
-    e.preventDefault();                                                // 3
-                                                                       //
-    MessageStore.post(this.refs.text.value);                           // 5
-                                                                       //
-    this.refs.text.value = '';                                         // 7
+  getDefaultProps: function () {                                       // 2
+    return {                                                           // 3
+      hasOpenConnection: false                                         // 4
+    };                                                                 //
   },                                                                   //
                                                                        //
-  render: function () {                                                // 10
-    return React.createElement(                                        // 11
+  handleSubmit: function (e) {                                         // 8
+    e.preventDefault();                                                // 9
+                                                                       //
+    MessageStore.post(this.refs.text.value);                           // 11
+                                                                       //
+    this.refs.text.value = '';                                         // 13
+  },                                                                   //
+                                                                       //
+  render: function () {                                                // 16
+    if (!this.props.hasOpenConnection) {                               // 17
+      return React.createElement("div", null);                         // 18
+    }                                                                  //
+                                                                       //
+    return React.createElement(                                        // 21
       "form",                                                          //
       { onSubmit: this.handleSubmit },                                 //
-      React.createElement("input", { ref: "text", type: "text" })      //
+      React.createElement(                                             //
+        "div",                                                         //
+        { className: "form-group" },                                   //
+        React.createElement("input", { className: "form-control", ref: "text", type: "text" })
+      )                                                                //
     );                                                                 //
   }                                                                    //
 });                                                                    //

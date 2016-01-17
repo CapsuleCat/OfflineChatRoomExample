@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////
                                                                        //
 ChatMessages = React.createClass({                                     // 1
-  displayName: "ChatMessages",                                         //
+  displayName: 'ChatMessages',                                         //
                                                                        //
   getDefaultProps: function () {                                       // 2
     return {                                                           // 3
@@ -15,24 +15,31 @@ ChatMessages = React.createClass({                                     // 1
     };                                                                 //
   },                                                                   //
                                                                        //
-  render: function () {                                                // 8
+  componentDidUpdate: function () {                                    // 8
+    if (this.refs.messages) {                                          // 9
+      var messageContainer = ReactDOM.findDOMNode(this.refs.messages);
+                                                                       //
+      messageContainer.scrollTop = Number.MAX_VALUE;                   // 12
+    }                                                                  //
+  },                                                                   //
+                                                                       //
+  render: function () {                                                // 16
     if (this.props.messages == null || this.props.messages.length === 0) {
-      return React.createElement(                                      // 11
-        "p",                                                           //
+      return React.createElement(                                      // 19
+        'p',                                                           //
         null,                                                          //
-        "No messages"                                                  //
+        'No messages'                                                  //
       );                                                               //
     }                                                                  //
                                                                        //
-    return React.createElement(                                        // 14
-      "div",                                                           //
-      null,                                                            //
+    return React.createElement(                                        // 22
+      'div',                                                           //
+      { style: { maxHeight: '50vh', overflow: 'auto' }, ref: 'messages' },
       this.props.messages.map(function (source, i) {                   //
-        return React.createElement(                                    // 17
-          "p",                                                         //
-          { key: source._id },                                         //
-          source.text                                                  //
-        );                                                             //
+        return React.createElement(ChatMessage, {                      // 25
+          key: source._id,                                             // 26
+          poster: source.poster,                                       // 27
+          text: source.text });                                        // 28
       })                                                               //
     );                                                                 //
   }                                                                    //
