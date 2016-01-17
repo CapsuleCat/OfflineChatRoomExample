@@ -5,8 +5,13 @@ ChatRoom = React.createClass({
         <div className="row">
           <div className="col-md-6 col-md-offset-3 col-sm-12">
             <ChatConnectionContainer />
-            <ChatMessagesContainer />
-            <ChatForm />
+
+            <div className="panel panel-default">
+              <div className="panel-body">
+                <ChatMessagesContainer />
+                <ChatFormContainer />
+              </div>
+            </div>
           </div>
         </div>
       </div>

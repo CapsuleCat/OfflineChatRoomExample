@@ -17,7 +17,7 @@ PeerStore = Reflux.createStore({
   _data: function(data) {
     Messages.insert({
       text: data,
-      from: 'other',
+      poster: 'other',
       createdAt: new Date()
     });
   },
