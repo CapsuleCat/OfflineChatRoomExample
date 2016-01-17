@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////
 //                                                                     //
-// client/containers/ChatConnectionContainer.jsx                       //
+// client/_containers/ChatConnectionContainer.jsx                      //
 //                                                                     //
 /////////////////////////////////////////////////////////////////////////
                                                                        //
