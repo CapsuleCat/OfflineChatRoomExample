@@ -1,20 +1,10 @@
 ChatConnection = React.createClass({
-  getInitialState() {
+  getDefaultProps() {
     return {
-      key: 'None'
+      hasOpenConnection: false,
+      hasOpenPeer: false,
+      connectionKey: 'None'
     }
-  },
-
-  handleOpenConnection(e) {
-    e.preventDefault();
-
-    let key = ShortId.generate();
-
-    this.setState({
-      key: key
-    });
-
-    PeerStore.open(key);
   },
 
   handleConnect(e) {
@@ -26,14 +16,27 @@ ChatConnection = React.createClass({
   },
 
   render() {
+    if (! this.props.hasOpenPeer || this.props.hasOpenConnection) {
+      return <div></div>;
+    }
+
     return (
-      <div>
-        <button onClick={this.handleOpenConnection}>Get My Key</button>
-        <p>Your Connection Key: {this.state.key}</p>
-        <form onSubmit={this.handleConnect}>
-          <input ref="connectToKey" type="text" placeholder="Connect To..."/>
-          <button type="submit">Connect</button>
-        </form>
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <p>Your Connection Key: {this.props.connectionKey}</p>
+          <form
+              className="form-inline"
+              onSubmit={this.handleConnect}>
+            <input
+                className="form-control"
+                ref="connectToKey"
+                type="text"
+                placeholder="Connect To..."/>
+            <button
+                className="btn btn-success"
+                type="submit">Connect</button>
+          </form>
+        </div>
       </div>
     );
   }
