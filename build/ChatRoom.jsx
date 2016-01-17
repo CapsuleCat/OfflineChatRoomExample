@@ -12,10 +12,26 @@ ChatRoom = React.createClass({                                         // 1
   render: function () {                                                // 2
     return React.createElement(                                        // 3
       "div",                                                           //
-      null,                                                            //
-      React.createElement(ChatConnection, null),                       //
-      React.createElement(ChatMessagesContainer, null),                //
-      React.createElement(ChatForm, null)                              //
+      { className: "container" },                                      //
+      React.createElement(                                             //
+        "div",                                                         //
+        { className: "row" },                                          //
+        React.createElement(                                           //
+          "div",                                                       //
+          { className: "col-md-6 col-md-offset-3 col-sm-12" },         //
+          React.createElement(ChatConnectionContainer, null),          //
+          React.createElement(                                         //
+            "div",                                                     //
+            { className: "panel panel-default" },                      //
+            React.createElement(                                       //
+              "div",                                                   //
+              { className: "panel-body" },                             //
+              React.createElement(ChatMessagesContainer, null),        //
+              React.createElement(ChatFormContainer, null)             //
+            )                                                          //
+          )                                                            //
+        )                                                              //
+      )                                                                //
     );                                                                 //
   }                                                                    //
 });                                                                    //

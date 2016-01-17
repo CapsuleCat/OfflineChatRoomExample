@@ -2,35 +2,32 @@
 
 /////////////////////////////////////////////////////////////////////////
 //                                                                     //
-// client/components/ChatConnection.jsx                                //
+// client/components/ConnectedTo.jsx                                   //
 //                                                                     //
 /////////////////////////////////////////////////////////////////////////
                                                                        //
-ChatConnection = React.createClass({                                   // 1
-  displayName: "ChatConnection",                                       //
+ConnectedTo = React.createClass({                                      // 1
+  displayName: "ConnectedTo",                                          //
                                                                        //
   getDefaultProps: function () {                                       // 2
     return {                                                           // 3
       hasOpenConnection: false,                                        // 4
-      hasOpenPeer: false,                                              // 5
-      connectionKey: 'None'                                            // 6
+      connectedToKey: 'None'                                           // 5
     };                                                                 //
   },                                                                   //
                                                                        //
-  handleConnect: function (e) {                                        // 10
-    e.preventDefault();                                                // 11
+  handleDisconnect: function (e) {                                     // 9
+    e.preventDefault();                                                // 10
                                                                        //
-    var key = this.refs.connectToKey.value;                            // 13
-                                                                       //
-    PeerStore.connect(key);                                            // 15
+    PeerStore.disconnect();                                            // 12
   },                                                                   //
                                                                        //
-  render: function () {                                                // 18
-    if (!this.props.hasOpenPeer || this.props.hasOpenConnection) {     // 19
-      return React.createElement("div", null);                         // 20
+  render: function () {                                                // 15
+    if (!this.props.hasOpenConnection) {                               // 16
+      return React.createElement("div", null);                         // 17
     }                                                                  //
                                                                        //
-    return React.createElement(                                        // 23
+    return React.createElement(                                        // 20
       "div",                                                           //
       { className: "panel panel-default" },                            //
       React.createElement(                                             //
@@ -39,26 +36,15 @@ ChatConnection = React.createClass({                                   // 1
         React.createElement(                                           //
           "p",                                                         //
           null,                                                        //
-          "Your Connection Key: ",                                     //
-          this.props.connectionKey                                     //
+          "Connected to: ",                                            //
+          this.props.connectedToKey                                    //
         ),                                                             //
         React.createElement(                                           //
-          "form",                                                      //
+          "button",                                                    //
           {                                                            //
-            className: "form-inline",                                  // 28
-            onSubmit: this.handleConnect },                            // 29
-          React.createElement("input", {                               //
-            className: "form-control",                                 // 31
-            ref: "connectToKey",                                       // 32
-            type: "text",                                              // 33
-            placeholder: "Connect To..." }),                           // 34
-          React.createElement(                                         //
-            "button",                                                  //
-            {                                                          //
-              className: "btn btn-success",                            // 36
-              type: "submit" },                                        // 37
-            "Connect"                                                  //
-          )                                                            //
+            onClick: this.handleDisconnect,                            // 25
+            className: "btn btn-danger" },                             // 26
+          "Disconnect"                                                 //
         )                                                              //
       )                                                                //
     );                                                                 //
