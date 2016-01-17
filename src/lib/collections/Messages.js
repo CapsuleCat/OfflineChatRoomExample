@@ -1,1 +1,1 @@
-Messages = Ground.Collection(null);
+Messages = Ground.Collection('messages', { connection: null });
